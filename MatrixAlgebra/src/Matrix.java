@@ -218,7 +218,21 @@ public class Matrix {
 			throw new IllegalArgumentException("Multiplcation not defined.");
 		}
 		Matrix product = new Matrix(this.rows, this.columns);
-		double[]
+		//Create an array of the rows
+		double subProduct = 0; //Varible for result of cell by cell multiplication
+		double secondSubProduct = 0;
+		int i = 0;
+		int j = 0;
+		while (i < this.rows) {
+			while (j < this.columns) {
+				subProduct = getValue(i,j) * matrix.getValue(i, j);
+				i++;
+			}
+			secondSubProduct = getValue(i,j) * matrix.getValue(i,j);
+			product.modify(i,j,subProduct + secondSubProduct);
+			j++;
+		}
+		return product;
 		
 	}
 	
