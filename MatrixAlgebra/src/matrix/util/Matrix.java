@@ -1,3 +1,4 @@
+package matrix.util;
 import java.util.*;
 /**
  * The matrix class defines a matrix object and its methods.
@@ -36,6 +37,8 @@ public class Matrix {
 		this.totalCells = this.rows * this.columns;
 		values = new double[totalCells];
 	}
+	
+	
 	/**The setValues method sets the values of the matrix object.
 	 * It takes a one dimensional matrix as a list of values and converts
 	 * that list into a proper two-dimensional matrix using the row and 
@@ -187,57 +190,7 @@ public class Matrix {
 		return column;
 	}
 	
-	
-	
-	/**The addition method adds a matrix to the other. 
-	 * @param matrix a matrix to add to the private one
-	 */
-	public Matrix addition(Matrix matrix) {
-		if (matrix.getRows() != this.rows || matrix.getColumns() != this.columns) {
-			//Addition is undefined for matricies of different sizes
-			throw new IllegalArgumentException("Unequal dimensions.");
-		}
-		//At this point both matricies must have the same dimensions
-		Matrix sum = new Matrix(this.rows, this.columns);
-		double value = 0;
-		for (int i = 0; i < this.rows; i++) {
-			for (int j = 0; j < this.columns; j++) {
-				value = getValue(i,j) + matrix.getValue(i,j);
-				sum.modify(i,j,value); 
-			}
-		}
-		return sum;
-	}
-	
-	/**The multiplication method multiplies the private matrix by 
-	 * one passed as a parameter. 
-	 * @param matrix a matrix to multiply by the private one
-	 */
-	public Matrix multiply(Matrix matrix){
-		if (matrix.getRows() != this.columns) {
-			throw new IllegalArgumentException("Multiplcation not defined.");
-		}
-		Matrix product = new Matrix(this.rows, this.columns);
-		//Create an array of the rows
-		double subProduct = 0; //Varible for result of cell by cell multiplication
-		double secondSubProduct = 0;
-		int i = 0;
-		int j = 0;
-		while (i < this.rows) {
-			while (j < this.columns) {
-				subProduct = getValue(i,j) * matrix.getValue(i, j);
-				i++;
-			}
-			secondSubProduct = getValue(i,j) * matrix.getValue(i,j);
-			product.modify(i,j,subProduct + secondSubProduct);
-			j++;
-		}
-		return product;
-		
-	}
-	
-	
-	
+
 	
 	
 }

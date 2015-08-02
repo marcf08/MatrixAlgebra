@@ -1,3 +1,5 @@
+import matrix.util.Matrix;
+
 /**
  * The matrix class defines a matrix object and its methods.
  */
