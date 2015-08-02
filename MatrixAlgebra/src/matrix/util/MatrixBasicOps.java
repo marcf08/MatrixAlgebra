@@ -107,7 +107,7 @@ public class MatrixBasicOps {
 	 * @param matrix
 	 *            a matrix to multiply by the private one
 	 */
-	public Matrix multiply(Matrix matrix) {
+	public Matrix multiply(  Matrix matrix) {
 		if (matrix.getRows() != this.columns) {
 			throw new IllegalArgumentException(
 					"Multiplcation not defined for arguments.");

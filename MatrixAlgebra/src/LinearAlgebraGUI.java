@@ -1,6 +1,8 @@
+import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
 
+import javax.swing.BoxLayout;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.JTextArea;
@@ -38,7 +40,7 @@ public class LinearAlgebraGUI extends JFrame {
 	/**
 	 * The other JPanel is for the answer/working field.
 	 */
-	private JPanel pnlTablet;
+	private JPanel pnlWorkArea;
 	/**
 	 * The text area is the area for the calculations and user work.
 	 */
@@ -60,26 +62,84 @@ public class LinearAlgebraGUI extends JFrame {
 	 */
 	private final String PRG_NAME = "Linear Calculator";
 	/**
-	 * The main panel holds the components
+	 * Constant for work sheet
+	 */
+	private final String WRK_SHT = "Worksheet";
+	/**
+	 * Default text for work area
+	 */
+	private final String DEF_MSG = "Linear Calculator 1.0";
+	/**
+	 * The main panel holds the components.
 	 */
 	private JPanel pnlMain;
+	/**
+	 * Label for work sheet area
+	 */
+	private JLabel lblWksht;
+	/**
+	 * Menu bar for file, save, settings, etc
+	 */
+	private JMenuBar menuBar;
+	/**
+	 * Menu bar items
+	 */
+	 private JMenuItem newItem, openItem, closeItem, saveItem, saveAsItem, printItem;
+	
+	
 	
 	/**
-	 * Add components to their respective containers
+	 * Add components to their respective containers, set up the GUI.
 	 */
 	public void setupGUI() {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setVisible(true);
 		setTitle(PRG_NAME);
+		mainWindow.setLayout(new BorderLayout());
+		setupWorkArea();
+		setDefaultCloseOperation(EXIT_ON_CLOSE);
+		
+		
 		
 	}
 	
+	/**
+	 * The main panel holds the work related components.
+	 *  
+	 */
+	public void setupWorkArea() {
+		lblWksht = new JLabel(WRK_SHT);
+		workingPane = new JTextArea(DEF_MSG);
+		pnlWorkArea = new JPanel();
+		
+		//Draw work area panel
+		pnlWorkArea.setLayout(new BoxLayout(pnlWorkArea, BoxLayout.Y_AXIS));
+		
+		
+		//Add to main panel
+		pnlWorkArea.add(lblWksht);
+		pnlWorkArea.add(workingPane);
+		pnlWorkArea.setVisible(true);
+		
+		//Add the work area to the main layout
+		mainWindow.add(pnlWorkArea, BorderLayout.CENTER);
+		this.setVisible(true);
+	}
+	
+	
+	/**
+	 * Set up the JMenu bar for file, settings, save, etc.
+	 */
+	public void 
 	
 	
 	
-	
+	/**
+	 * Call methods, register listeners, set up the GUI.
+	 */
 	public LinearAlgebraGUI() {
 		setupGUI();
+		
 		
 	}
 	
