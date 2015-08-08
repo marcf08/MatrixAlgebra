@@ -56,10 +56,12 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 	 * The card layout is for showing the different controls.
 	 */
 	private FlowLayout layoutControls;
+	
+	private final int SPACER = 600;
 	/**
 	 * Width of container
 	 */
-	private final int FRAME_WIDTH = 800;
+	private final int FRAME_WIDTH = 900;
 	/**
 	 * Height of container
 	 */
@@ -106,6 +108,22 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 	 */
 	private JPanel pnlStatus;
 	/**
+	 * The update panel provides user feedback in the lower right corner of the GUI.
+	 */
+	private JPanel pnlFeedback;
+	/**
+	 * The text panel provides message updates to the program's status.
+	 */
+	private JLabel lblFeedback;
+	/**
+	 * The messages below apply to the feedback JLabel.
+	 */
+	private final String FDB_CLEAR = "Work area cleared.";
+	private final String FDB_SAVED = "Work saved.";
+	private final String FDB_WORK = "Working...";
+	private final String FDB_READY = "Ready.";
+	
+	/**
 	 * JPanel for program label at the bottom.
 	 */
 	private JPanel pnlText;
@@ -128,7 +146,12 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 	 * The JPanel holds the buttons used for file, edit, etc.
 	 */
 	private JPanel pnlButtonsMain;
-
+	
+	/**
+	 * The JPanel corresponds to the basic operations
+	 */
+	private JPanel pnlBasicOperations;
+	
 	/**
 	 * Specific menu items
 	 * 
@@ -164,7 +187,19 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 	private JButton btnsCalculator7;
 	private JButton btnsCalculator8;
 	private JButton btnsCalculator9;
-
+	/**
+	 * Create buttons for basic operations
+	 */
+	private JButton btnEquals;
+	private JButton btnPlus;
+	private JButton btnMinus;
+	private JButton btnMult;
+	private JButton btnDiv;
+	private JButton btnSin;
+	private JButton btnCos;
+	private JButton btnTan;
+	private JButton btnClearLine;
+	
 	/**
 	 * This simple array is for the buttons
 	 */
@@ -190,17 +225,17 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		setupWorkArea();
 
 		setupCalcButtons();
-
-		setupCalcButtons();
+		
+		setupBasicOperations();
 
 		setupTools();
 
 		registerListeners();
 		
-		
-
 		setupLower();
-
+		setupFeedback();
+		
+		updateFeedback(FDB_READY);
 	}
 
 	/**
@@ -273,18 +308,21 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		workingPane.setFont(fntTextArea);
 		fntTextArea = new Font("Garamond", Font.BOLD, 16);
 		workingPane.setFont(fntTextArea);
-		pnlWorkArea = new JPanel();
-
-		// Draw work area panel
-		pnlWorkArea.setLayout(new BoxLayout(pnlWorkArea, BoxLayout.Y_AXIS));
-
-		// Add to main panel
-		pnlWorkArea.add(workingPane);
-		pnlWorkArea.setVisible(true);
-
+		pnlWorkArea = new JPanel(new BorderLayout());
+		
+		JScrollPane scroll = new JScrollPane(workingPane);
+		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
+		pnlWorkArea.add(scroll, BorderLayout.EAST);
+		
+		 
+		
 		// Add the work area to the main layout
 		mainWindow.add(pnlWorkArea, BorderLayout.WEST);
-		this.setVisible(true);
+	}
+	
+	public void configureWorkArea() {
+		workingPane.addKey {
+			
 	}
 
 	/**
@@ -384,18 +422,151 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		pnlControls.add(pnlCalc);
 
 	}
+	
+	/**
+	 * The set up basic ops button adds basic operations to the
+	 * calculator
+	 */
+	private void setupBasicOperations() {
+		btnEquals = new JButton("=");
+		btnDiv = new JButton("/");
+		btnMinus = new JButton("-");
+		btnMult = new JButton("x");
+		btnPlus = new JButton("+");
+		btnClearLine = new JButton("Clear Line");
+		
+		btnSin = new JButton("Sin(x)");
+		btnCos = new JButton("Cos(x)");
+		btnTan = new JButton("Tan(x)");
+		
+		btnEquals.setPreferredSize(btnClearLine.getMaximumSize());
+		btnDiv.setPreferredSize(btnClearLine.getMaximumSize());
+		btnMinus.setPreferredSize(btnClearLine.getMaximumSize());
+		btnMult.setPreferredSize(btnClearLine.getMaximumSize());
+		btnPlus.setPreferredSize(btnClearLine.getMaximumSize());
+		btnCos.setPreferredSize(btnClearLine.getMaximumSize());
+		btnTan.setPreferredSize(btnClearLine.getMaximumSize());
+		btnSin.setPreferredSize(btnClearLine.getMaximumSize());
+		
+		
+		GridBagLayout layoutGridButtons = new GridBagLayout();
+
+		// Build constraints for manually adding buttons
+		GridBagConstraints zero = new GridBagConstraints();
+		GridBagConstraints one = new GridBagConstraints();
+		GridBagConstraints two = new GridBagConstraints();
+		GridBagConstraints three = new GridBagConstraints();
+		GridBagConstraints four = new GridBagConstraints();
+		GridBagConstraints five = new GridBagConstraints();
+		GridBagConstraints six = new GridBagConstraints();
+		GridBagConstraints seven = new GridBagConstraints();
+		GridBagConstraints eight = new GridBagConstraints();
+		GridBagConstraints nine = new GridBagConstraints();
+		
+		// Manually set the constraints
+		zero.gridx = 0;
+		zero.gridy = 0;
+
+		one.gridx = 1;
+		one.gridy = 0;
+
+		two.gridx = 2;
+		two.gridy = 0;
+
+		three.gridx = 0;
+		three.gridy = 1;
+
+		four.gridx = 1;
+		four.gridy = 1;
+
+		five.gridx = 2;
+		five.gridy = 1;
+
+		six.gridx = 0;
+		six.gridy = 2;
+
+		seven.gridx = 1;
+		seven.gridy = 2;
+
+		eight.gridx = 2;
+		eight.gridy = 2;
+
+		nine.gridx = 1;
+		nine.gridy = 3;
+		
+		pnlBasicOperations = new JPanel(layoutGridButtons);
+		
+		pnlBasicOperations.add(btnSin, zero);
+		pnlBasicOperations.add(btnCos, one);
+		pnlBasicOperations.add(btnTan, two);
+		pnlBasicOperations.add(btnEquals, three);
+		pnlBasicOperations.add(btnDiv, four);
+		pnlBasicOperations.add(btnMinus, five);
+		pnlBasicOperations.add(btnMult, six);
+		pnlBasicOperations.add(btnPlus, seven);
+		pnlBasicOperations.add(btnClearLine, eight);
+		
+		pnlBasicOperations.setBorder(BorderFactory.createBevelBorder(1));
+		pnlControls.add(pnlBasicOperations);
+		
+		
+		
+		
+	}
 
 	/**
 	 * Set up tool area on right hand side of GUI
 	 */
 	public void setupTools() {
 		pnlTools = new JPanel();
-		pnlTools.setLayout(new BoxLayout(pnlTools, BoxLayout.Y_AXIS));
+		pnlTools.setLayout(new FlowLayout());
 		pnlTools.add(pnlControls);
 		mainWindow.add(pnlTools, BorderLayout.CENTER);
 		mainWindow.validate();
 	}
-
+	
+	/**
+	 * The feedback area sets up the feedback for displaying
+	 * errors or status updates to the user.
+	 */
+	public void setupFeedback() {
+		pnlFeedback = new JPanel();
+		lblFeedback = new JLabel(); 
+		pnlFeedback.add(lblFeedback);
+		
+		
+		
+		//Since pnlStatus uses a flow layout,
+		//The spacer panel is needed to keep the
+		//feedback label separate from the other information.
+		JPanel spacer = new JPanel();
+		spacer.setPreferredSize(new Dimension(SPACER, 0));
+		pnlStatus.add(spacer);
+		pnlStatus.add(pnlFeedback);
+		mainWindow.revalidate();
+		
+		
+	}
+	
+	/**
+	 * The update feedback updates the feedback label
+	 * based on what the program is doing.
+	 */
+	public void updateFeedback(String status) {
+		Timer t = new Timer(1500, new ActionListener() {
+			public void actionPerformed(ActionEvent e) {
+				lblFeedback.setText(FDB_READY);
+				lblFeedback.revalidate();
+				mainWindow.revalidate();
+			}
+		});
+		t.setRepeats(false);
+		t.start();
+		lblFeedback.setText(status);
+		lblFeedback.revalidate();
+		mainWindow.revalidate();
+	}
+	
 	/**
 	 * Set up the Action listeners
 	 */
@@ -403,6 +574,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		Object src = e.getSource();
 		if (src == optionCompleteClear) {
 			workingPane.setText("");
+			updateFeedback(FDB_CLEAR);
 		}
 		if (src == optionExit) {
 			System.exit(0);
@@ -442,12 +614,24 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		// Simple complete clear dialog
 		optionCompleteClear.addActionListener(this);
 		
-		//Add listeners to buttons
+		// Add listeners to buttons
 		for (int i = 0; i < buttonList.length; i++) {
 			buttonList[i].addActionListener(this);
 		}
 		
-
+		// Add listener to text area for its behavior
+		workingPane.addFocusListener(new FocusListener() {
+			public void focusLost(FocusEvent e) {
+				//Empty method stub, nothing needed for when
+				//the user leaves the text area
+			}
+			public void focusGained(FocusEvent e) {
+				if (e.getSource() == workingPane && isFirstPush) {
+					workingPane.setText("");
+				}
+				
+			}
+		});
 	}
 
 	/**
@@ -460,12 +644,12 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		mainWindow.add(pnlStatus, BorderLayout.SOUTH);
 		lblProgramName = new JLabel(PRG_NAME);
 		pnlText = new JPanel();
-
 		pnlText.add(lblProgramName);
 		pnlText.validate();
 		pnlStatus.add(pnlText, LEFT_ALIGNMENT);
 		pnlStatus.setBorder(BorderFactory.createEtchedBorder());
 		mainWindow.validate();
+
 	}
 
 	/**
