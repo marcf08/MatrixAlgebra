@@ -1,3 +1,5 @@
+package matrix.ui;
+
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -16,6 +18,8 @@ import java.util.Scanner;
 import javax.swing.*;
 import javax.swing.border.*;
 
+import matrix.util.BasicOperation;
+
 import com.jgoodies.forms.layout.CellConstraints.Alignment;
 
 /**
@@ -25,7 +29,17 @@ import com.jgoodies.forms.layout.CellConstraints.Alignment;
  * @author Marcus
  *
  */
-public class LinearAlgebraGUI extends JFrame implements ActionListener {
+public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListener {
+	/**
+	 * Generated serial ID
+	 */
+	private static final long serialVersionUID = 7683611975720863191L;
+	/**
+	 * The calculator (for now) uses a basic operation instance
+	 * to perform basic operations. Later development will include an
+	 * operation class to maintain the MVC encapsulation.
+	 */
+	private BasicOperation calculate;
 	/**
 	 * The main window is for the main components.
 	 */
@@ -47,6 +61,23 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 	 * The text area is the area for the calculations and user work.
 	 */
 	private JTextArea workingPane;
+	/**
+	 * The string buffer builds an expression to be parsed and passed
+	 * to the client.
+	 */
+	private StringBuffer mainExpression;
+	/**
+	 * The secondary expression follows the main expression.
+	 */
+	private StringBuffer secondaryExpression;
+	/**
+	 * The formatter allows the GUI to do minimal text processing.
+	 */
+	private Formatter format;
+	/**
+	 * The max size is how many expressions the GUI should hold.
+	 */
+	private static final int MAX_CAPACITY = 500;
 	/**
 	 * The boolean is false initially. Once a button is pushed,
 	 * it will be turned to false, acting as a switch.
@@ -220,6 +251,8 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		mainWindow.setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
+		calculate = new BasicOperation();
+		
 		setupMainBar();
 
 		setupWorkArea();
@@ -236,6 +269,8 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		setupFeedback();
 		
 		updateFeedback(FDB_READY);
+		
+		setupExpression();
 	}
 
 	/**
@@ -301,9 +336,12 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 	 * 
 	 */
 	public void setupWorkArea() {
+		
 		workingPane = new JTextArea(DEF_MSG);
 		workingPane.setEditable(true);
 		workingPane.setLineWrap(true);
+		workingPane.setWrapStyleWord(true);
+		//workingane.set
 		workingPane.setSize(400, 100);
 		workingPane.setFont(fntTextArea);
 		fntTextArea = new Font("Garamond", Font.BOLD, 16);
@@ -314,17 +352,60 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		pnlWorkArea.add(scroll, BorderLayout.EAST);
 		
-		 
+		
+		
+		configureWorkArea(); //Add and set key listener 
 		
 		// Add the work area to the main layout
+		format = new Formatter();
+		
 		mainWindow.add(pnlWorkArea, BorderLayout.WEST);
 	}
 	
+	
+	/**
+	 * Configure work area sets a key listener
+	 * to the working pane. It also sets up the
+	 * string buffer used to accept expressions.
+	 */
 	public void configureWorkArea() {
-		workingPane.addKey {
-			
+		workingPane.addKeyListener(this);
+		mainExpression = new StringBuffer();
+		mainWindow.revalidate();
+		
 	}
+	
+	/**
+	 * The key pressed registers the enter key to the working pane
+	 * text area.
+	 */
+	public void keyPressed(KeyEvent e) {
+		if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+			workingPane.append("\n");
+			String firstLine = format.getFirstLine(workingPane.getText());
+			String result = calculate.parse(firstLine);
+			e.consume();
+			workingPane.setText("");
+			workingPane.append("\n");
+			format.addToBuffer(result);
+			workingPane.append(format.getBuffer());
+			workingPane.setCaretPosition(0);
+			
+			
+			
+			
+		}
+	}
+	
 
+	/**
+	 * The expression section stores the expressions.
+	 */
+	public void setupExpression() {
+		mainExpression = new StringBuffer();
+	}
+	
+	
 	/**
 	 * Set up basic calculator buttons.
 	 */
@@ -573,7 +654,9 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		Object src = e.getSource();
 		if (src == optionCompleteClear) {
+			format.clearBuffer();
 			workingPane.setText("");
+			mainExpression.delete(0, mainExpression.length());
 			updateFeedback(FDB_CLEAR);
 		}
 		if (src == optionExit) {
@@ -669,5 +752,22 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener {
 	public static void main(String[] args) {
 		new LinearAlgebraGUI();
 	}
+
+	//TODO: Edit or delete, etc
+	public void keyReleased(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	//TODO: Edit or delete, etc
+	public void keyTyped(KeyEvent e) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	
+	
+
+
 
 }
