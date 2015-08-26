@@ -390,10 +390,14 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 			format.addToBuffer(result);
 			workingPane.append(format.getBuffer());
 			workingPane.setCaretPosition(0);
-			
-			
-			
-			
+		}
+		if (e.getKeyCode() == KeyEvent.VK_UP) {
+			e.consume();
+			workingPane.setCaretPosition(0);
+		}
+		if (e.getKeyCode() == KeyEvent.VK_DOWN) {
+			e.consume();
+			workingPane.setCaretPosition(0);
 		}
 	}
 	
@@ -675,10 +679,28 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 				workingPane.setText(i.toString());
 			}
 				else if (src == buttonList[i] && !isFirstPush) {
-				workingPane.setText(i.toString());
+				workingPane.append(i.toString());
 			}
 				
 			
+		}
+		
+		// For addition functionality
+		if (src == btnPlus) {
+			workingPane.append("+");
+		}
+		
+		// For subtraction functionality
+		if (src == btnMinus) {
+			workingPane.append("-");
+		}
+		// For multiplication functionality
+		if (src == btnMult) {
+			workingPane.append("*");
+		}
+		// For division functionality
+		if (src == btnDiv) {
+			workingPane.append("/");
 		}
 
 	}
@@ -702,19 +724,31 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 			buttonList[i].addActionListener(this);
 		}
 		
+		// Add listeners to basic calculation buttons
+		btnMult.addActionListener(this);
+		btnPlus.addActionListener(this);
+		btnDiv.addActionListener(this);
+		btnMinus.addActionListener(this);
+		
+		
+		
 		// Add listener to text area for its behavior
 		workingPane.addFocusListener(new FocusListener() {
 			public void focusLost(FocusEvent e) {
 				//Empty method stub, nothing needed for when
 				//the user leaves the text area
 			}
+			
 			public void focusGained(FocusEvent e) {
 				if (e.getSource() == workingPane && isFirstPush) {
 					workingPane.setText("");
 				}
 				
 			}
+			
 		});
+		
+		
 	}
 
 	/**
