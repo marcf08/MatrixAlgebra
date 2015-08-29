@@ -4,6 +4,9 @@ import javax.script.ScriptEngine;
 import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 
+import net.sourceforge.jeval.EvaluationException;
+import net.sourceforge.jeval.Evaluator;
+
 /**
  * The basic operations class defines a basic
  * operation using the Java Script engine.
@@ -15,16 +18,27 @@ public class BasicOperation {
 	 * The Basic Operation uses the Java Script manager
 	 * to parse the expression.
 	 */
-	private ScriptEngineManager parse;
-	/**
-	 * The engine uses the JavaScript engine to 
-	 * perform calculations.
-	 */
-	private ScriptEngine engine;
+	private Evaluator parse;
 	/**
 	 * The equals sign helps format the output.
 	 */
 	private static final String FORMAT_EQUALS = " = ";
+	/**
+	 * The error message is a full description of what
+	 * the program prints to the GUI when the parser
+	 * encounters an error.
+	 */
+	private static final String ERR_MSG_ONE = "Expression \"";
+	/**
+	 * The error message is a full description of what
+	 * the program prints to the GUI when the parser
+	 * encounters an error.
+	 */
+	private static final String ERR_MSG_TWO = "\" returned a Syntax Error.";
+	/**
+	 * The instance field is for the broken expression.
+	 */
+	private String brokenExpression;
 	/**
 	 * There's only a null constructor to use.
 	 * The GUI sets up the null constructor as an
@@ -32,8 +46,7 @@ public class BasicOperation {
 	 * using the instance variable. 
 	 */
 	public BasicOperation() {
-		parse = new ScriptEngineManager();
-		engine = parse.getEngineByName("JavaScript");
+		parse = new Evaluator();
 	}
 	
 	/**
@@ -47,12 +60,26 @@ public class BasicOperation {
 		try {
 			String fullResult = null;
 			Object result = null;
-			result = engine.eval(expression);
+			result = parse.evaluate(expression);
 			fullResult = format(expression, result);
 			return fullResult;
-		} catch (ScriptException e) {
-			return null;
+		} catch (EvaluationException e) {
+			return formatSyntaxError(expression);
 		}
+
+	}
+
+	/**
+	 * The format syntax error will pass the broken expression
+	 * so that it can be formatted correctly and returned to 
+	 * the GUI.
+	 * @param badExpression an expression that throws an error
+	 * @return errorMessage the error message formatted properly
+	 */
+	private String formatSyntaxError(String badExpression) {
+		String errorMessage = ERR_MSG_ONE + badExpression + ERR_MSG_TWO; 
+		return errorMessage; 
+		
 	}
 	
 	/**

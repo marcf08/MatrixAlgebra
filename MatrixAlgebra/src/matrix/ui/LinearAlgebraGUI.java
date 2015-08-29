@@ -35,6 +35,12 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	 */
 	private static final long serialVersionUID = 7683611975720863191L;
 	/**
+	 * The window state listener is used for listening to minimizing/maximizing
+	 * the application.
+	 */
+	private WindowStateListener wsl;
+	
+	/**
 	 * The calculator (for now) uses a basic operation instance
 	 * to perform basic operations. Later development will include an
 	 * operation class to maintain the MVC encapsulation.
@@ -253,6 +259,8 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 
 		calculate = new BasicOperation();
 		
+		setupStateListener();
+		
 		setupMainBar();
 
 		setupWorkArea();
@@ -273,6 +281,23 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		setupExpression();
 	}
 
+	/**
+	 * Set up the window state listener. This repaints the contents
+	 * if the user minimizes the program.
+	 */
+	public void setupStateListener() {
+		wsl = new WindowStateListener() {
+			public void windowStateChanged(WindowEvent e) {
+				workingPane.repaint();
+				workingPane.validate();
+				
+			}
+		};
+		addWindowStateListener(wsl);
+	}
+	
+	
+	
 	/**
 	 * Set up the file, edit, etc, bar for the top of the window
 	 */
@@ -391,6 +416,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 			workingPane.append(format.getBuffer());
 			workingPane.setCaretPosition(0);
 		}
+		
 		if (e.getKeyCode() == KeyEvent.VK_UP) {
 			e.consume();
 			workingPane.setCaretPosition(0);
