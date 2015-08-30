@@ -259,11 +259,17 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	public void setupGUI() {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setVisible(true);
-		setTitle(PRG_NAME);
+			
+		setIconImage(Toolkit.getDefaultToolkit().getImage("BarnsleyFern.PNG"));
+
+	
+		
+		
 		mainWindow.setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		calculate = new BasicOperation();
+		
 		
 			
 		setupMainBar();
