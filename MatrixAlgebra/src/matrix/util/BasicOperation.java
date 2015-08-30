@@ -20,6 +20,16 @@ public class BasicOperation {
 	 */
 	private Evaluator parse;
 	/**
+	 * The power string converts the caret mark to the
+	 * format for the evaluator.
+	 */
+	private String powerExpression;
+	/**
+	 * The degrees string converts the degree symbol to
+	 * the format for the evaluator.
+	 */
+	private String degreeExpression;
+	/**
 	 * The equals sign helps format the output.
 	 */
 	private static final String FORMAT_EQUALS = " = ";

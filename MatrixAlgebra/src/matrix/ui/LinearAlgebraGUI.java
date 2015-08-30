@@ -569,6 +569,9 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		GridBagConstraints nine = new GridBagConstraints();
 		GridBagConstraints ten = new GridBagConstraints();
 		GridBagConstraints eleven = new GridBagConstraints();
+		GridBagConstraints twelve = new GridBagConstraints();
+		GridBagConstraints thirteen = new GridBagConstraints();
+		GridBagConstraints fourteen = new GridBagConstraints();
 		
 		
 		// Manually set the constraints
@@ -608,6 +611,15 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		eleven.gridx = 2;
 		eleven.gridy = 3;
 		
+		twelve.gridx = 0;
+		twelve.gridy = 4;
+		
+		thirteen.gridx = 1;
+		thirteen.gridy = 4;
+		
+		fourteen.gridx = 2;
+		fourteen.gridy = 4;
+		
 		pnlBasicOperations = new JPanel(layoutGridButtons);
 		
 		pnlBasicOperations.add(btnPlus, zero);
@@ -622,6 +634,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		pnlBasicOperations.add(btnSin, nine);
 		pnlBasicOperations.add(btnCos, ten);
 		pnlBasicOperations.add(btnTan, eleven);
+		pnlBasicOperations.add(btnDegrees, twelve);
 		
 		pnlBasicOperations.setBorder(BorderFactory.createBevelBorder(1));
 		pnlControls.add(pnlBasicOperations);
@@ -739,6 +752,23 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		if (src == btnCos) {
 			workingPane.append("cos(");
 		}
+		
+		if (src == btnSin) {
+			workingPane.append("sin(");
+		}
+		
+		if (src == btnTan) {
+			workingPane.append("tan(");
+		}
+		
+		if (src == btnPower) {
+			workingPane.append("^");
+		}
+		
+		if (src == btnDegrees) {
+			workingPane.append("°");
+		}
+		
 		
 		
 		
