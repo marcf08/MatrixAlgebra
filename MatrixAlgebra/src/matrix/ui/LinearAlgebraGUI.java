@@ -65,6 +65,14 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	 */
 	private JPanel pnlWorkArea;
 	/**
+	 * The status panel is used for adding statuses.
+	 */
+	private JPanel pnlStatus;
+	/**
+	 * The feedback panel provides user feedback.
+	 */
+	private JPanel pnlFeedback;
+	/**
 	 * The text area is the area for the calculations and user work.
 	 */
 	private JTextArea workingPane;
@@ -111,7 +119,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	/**
 	 * Name of program
 	 */
-	private final String PRG_NAME = "Linear Calculator 1.0 TEST";
+	private final String PRG_NAME = "Linear Calculator 1.0";
 	/**
 	 * Constant for work sheet
 	 */
@@ -126,29 +134,11 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	/**
 	 * Default text for work area
 	 */
-	private final String DEF_MSG = "Linear Calculator 1.0 TEST";
+	private final String DEF_MSG = "Linear Calculator 1.0";
 	/**
 	 * Setup the pane for buttons
 	 */
 	private JPanel pnlCalc;
-	/**
-	 * The main panel holds the components.
-	 */
-	private JPanel pnlMain;
-	/**
-	 * Label for work sheet area
-	 */
-	private JLabel lblWksht;
-	/**
-	 * This JPanel is for the bottom of the GUI. It shows the program name and
-	 * status bar.
-	 * 
-	 */
-	private JPanel pnlStatus;
-	/**
-	 * The update panel provides user feedback in the lower right corner of the GUI.
-	 */
-	private JPanel pnlFeedback;
 	/**
 	 * The text panel provides message updates to the program's status.
 	 */
@@ -259,6 +249,9 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	public void setupGUI() {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setVisible(true);
+		setTitle(PRG_NAME);
+		
+		setIconImage(new ImageIcon("/MatrixAlgebra/Ancillaries/BarnsleyFern.PNG").getImage());		
 		
 		
 		mainWindow.setLayout(new BorderLayout());
@@ -279,11 +272,11 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 
 		registerListeners();
 		
-			
 		setupLower();
+		
 		setupFeedback();
 		
-		updateFeedback(FDB_READY + "WHAT");
+		updateFeedback(FDB_READY);
 		
 		setupExpression();
 
@@ -743,10 +736,8 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 			workingPane.append("/");
 		}
 		
-		if (src == btnEquals) {
-			
-
-			
+		if (src == btnCos) {
+			workingPane.append("cos(");
 		}
 		
 		
