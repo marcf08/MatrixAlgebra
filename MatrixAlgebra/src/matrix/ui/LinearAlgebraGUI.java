@@ -111,7 +111,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	/**
 	 * Name of program
 	 */
-	private final String PRG_NAME = "Linear Calculator 1.0";
+	private final String PRG_NAME = "Linear Calculator 1.0 TEST";
 	/**
 	 * Constant for work sheet
 	 */
@@ -126,7 +126,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	/**
 	 * Default text for work area
 	 */
-	private final String DEF_MSG = "Linear Calculator 1.0";
+	private final String DEF_MSG = "Linear Calculator 1.0 TEST";
 	/**
 	 * Setup the pane for buttons
 	 */
@@ -259,18 +259,13 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	public void setupGUI() {
 		setSize(FRAME_WIDTH, FRAME_HEIGHT);
 		setVisible(true);
-			
-		setIconImage(Toolkit.getDefaultToolkit().getImage("BarnsleyFern.PNG"));
-
-	
 		
 		
 		mainWindow.setLayout(new BorderLayout());
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
-
+		
 		calculate = new BasicOperation();
-		
-		
+			
 			
 		setupMainBar();
 
@@ -288,7 +283,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		setupLower();
 		setupFeedback();
 		
-		updateFeedback(FDB_READY);
+		updateFeedback(FDB_READY + "WHAT");
 		
 		setupExpression();
 
