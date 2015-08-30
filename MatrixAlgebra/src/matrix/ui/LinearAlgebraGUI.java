@@ -237,6 +237,11 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	private JButton btnCos;
 	private JButton btnTan;
 	private JButton btnClearLine;
+	private JButton btnDegrees;
+	private JButton btnPower;
+	private JButton btnSqrt;
+	private JButton btnLeftParent;
+	private JButton btnRightParent;
 	
 	/**
 	 * This simple array is for the buttons
@@ -273,6 +278,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 
 		registerListeners();
 		
+			
 		setupLower();
 		setupFeedback();
 		
@@ -357,7 +363,6 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		fntTextArea = new Font("Garamond", Font.BOLD, 16);
 		workingPane.setFont(fntTextArea);
 		pnlWorkArea = new JPanel(new BorderLayout());
-		
 		JScrollPane scroll = new JScrollPane(workingPane);
 		scroll.setVerticalScrollBarPolicy(ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
 		pnlWorkArea.add(scroll, BorderLayout.EAST);
@@ -528,9 +533,14 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		btnEquals = new JButton("=");
 		btnDiv = new JButton("/");
 		btnMinus = new JButton("-");
-		btnMult = new JButton("x");
+		btnMult = new JButton("*");
 		btnPlus = new JButton("+");
 		btnClearLine = new JButton("Clear Line");
+		btnDegrees = new JButton("To Deg");
+		btnPower = new JButton("x^2");
+		btnSqrt = new JButton("Sqrt(x)");
+		btnLeftParent = new JButton("(");
+		btnRightParent = new JButton(")");
 		
 		btnSin = new JButton("Sin(x)");
 		btnCos = new JButton("Cos(x)");
@@ -544,7 +554,11 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		btnCos.setPreferredSize(btnClearLine.getMaximumSize());
 		btnTan.setPreferredSize(btnClearLine.getMaximumSize());
 		btnSin.setPreferredSize(btnClearLine.getMaximumSize());
-		
+		btnDegrees.setPreferredSize(btnClearLine.getMaximumSize());
+		btnPower.setPreferredSize(btnClearLine.getMaximumSize());
+		btnSqrt.setPreferredSize(btnClearLine.getMaximumSize());
+		btnLeftParent.setPreferredSize(btnClearLine.getMaximumSize());
+		btnRightParent.setPreferredSize(btnClearLine.getMaximumSize());
 		
 		GridBagLayout layoutGridButtons = new GridBagLayout();
 
@@ -559,6 +573,9 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		GridBagConstraints seven = new GridBagConstraints();
 		GridBagConstraints eight = new GridBagConstraints();
 		GridBagConstraints nine = new GridBagConstraints();
+		GridBagConstraints ten = new GridBagConstraints();
+		GridBagConstraints eleven = new GridBagConstraints();
+		
 		
 		// Manually set the constraints
 		zero.gridx = 0;
@@ -588,23 +605,33 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		eight.gridx = 2;
 		eight.gridy = 2;
 
-		nine.gridx = 1;
+		nine.gridx = 0;
 		nine.gridy = 3;
+		
+		ten.gridx = 1;
+		ten.gridy = 3;
+		
+		eleven.gridx = 2;
+		eleven.gridy = 3;
 		
 		pnlBasicOperations = new JPanel(layoutGridButtons);
 		
-		pnlBasicOperations.add(btnSin, zero);
-		pnlBasicOperations.add(btnCos, one);
-		pnlBasicOperations.add(btnTan, two);
-		pnlBasicOperations.add(btnEquals, three);
-		pnlBasicOperations.add(btnDiv, four);
-		pnlBasicOperations.add(btnMinus, five);
-		pnlBasicOperations.add(btnMult, six);
-		pnlBasicOperations.add(btnPlus, seven);
-		pnlBasicOperations.add(btnClearLine, eight);
+		pnlBasicOperations.add(btnPlus, zero);
+		pnlBasicOperations.add(btnMinus, one);
+		pnlBasicOperations.add(btnDiv, two);
+		pnlBasicOperations.add(btnMult, three);
+		pnlBasicOperations.add(btnEquals, four);
+		pnlBasicOperations.add(btnPower, five);
+		pnlBasicOperations.add(btnSqrt, six);
+		pnlBasicOperations.add(btnLeftParent, seven);
+		pnlBasicOperations.add(btnRightParent, eight);
+		pnlBasicOperations.add(btnSin, nine);
+		pnlBasicOperations.add(btnCos, ten);
+		pnlBasicOperations.add(btnTan, eleven);
 		
 		pnlBasicOperations.setBorder(BorderFactory.createBevelBorder(1));
 		pnlControls.add(pnlBasicOperations);
+		
 		
 		
 		
@@ -714,6 +741,15 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		if (src == btnDiv) {
 			workingPane.append("/");
 		}
+		
+		if (src == btnEquals) {
+			
+
+			
+		}
+		
+		
+		
 
 	}
 	
@@ -741,8 +777,14 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		btnPlus.addActionListener(this);
 		btnDiv.addActionListener(this);
 		btnMinus.addActionListener(this);
-		
-		
+		btnEquals.addActionListener(this);
+		btnPower.addActionListener(this);
+		btnSqrt.addActionListener(this);
+		btnLeftParent.addActionListener(this);
+		btnRightParent.addActionListener(this);
+		btnSin.addActionListener(this);
+		btnCos.addActionListener(this);
+		btnTan.addActionListener(this);
 		
 		// Add listener to text area for its behavior
 		workingPane.addFocusListener(new FocusListener() {
