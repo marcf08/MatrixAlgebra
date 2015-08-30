@@ -1,5 +1,6 @@
 package matrix.ui;
 
+import java.awt.AWTException;
 import java.awt.BorderLayout;
 import java.awt.Container;
 import java.awt.FlowLayout;
@@ -259,8 +260,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 
 		calculate = new BasicOperation();
 		
-		setupStateListener();
-		
+			
 		setupMainBar();
 
 		setupWorkArea();
@@ -279,23 +279,10 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		updateFeedback(FDB_READY);
 		
 		setupExpression();
+
 	}
 
-	/**
-	 * Set up the window state listener. This repaints the contents
-	 * if the user minimizes the program.
-	 */
-	public void setupStateListener() {
-		wsl = new WindowStateListener() {
-			public void windowStateChanged(WindowEvent e) {
-				workingPane.repaint();
-				workingPane.validate();
-				
-			}
-		};
-		addWindowStateListener(wsl);
-	}
-	
+
 	
 	
 	/**
@@ -361,13 +348,11 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 	 * 
 	 */
 	public void setupWorkArea() {
-		
 		workingPane = new JTextArea(DEF_MSG);
 		workingPane.setEditable(true);
 		workingPane.setLineWrap(true);
 		workingPane.setWrapStyleWord(true);
-		//workingane.set
-		workingPane.setSize(400, 100);
+		workingPane.setSize(400, 200);
 		workingPane.setFont(fntTextArea);
 		fntTextArea = new Font("Garamond", Font.BOLD, 16);
 		workingPane.setFont(fntTextArea);
@@ -378,8 +363,9 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 		pnlWorkArea.add(scroll, BorderLayout.EAST);
 		
 		
+		//Add and set key listener
 		
-		configureWorkArea(); //Add and set key listener 
+		configureWorkArea();  
 		
 		// Add the work area to the main layout
 		format = new Formatter();
@@ -768,6 +754,7 @@ public class LinearAlgebraGUI extends JFrame implements ActionListener, KeyListe
 			public void focusGained(FocusEvent e) {
 				if (e.getSource() == workingPane && isFirstPush) {
 					workingPane.setText("");
+					isFirstPush = false;
 				}
 				
 			}
