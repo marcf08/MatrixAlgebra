@@ -75,30 +75,30 @@ public class ConversionUtility {
 	/**
 	 * A two part expression is an expression of two parts,
 	 * such as the power symbol. Without 
-	 * @param expression
+	 * @param expression an expression to manipulate
 	 */
 	private void prepTwoPartExpression(String expression) {
-		
-		
-		
+		Character expressionType = getExpressionType(expression);
+		String argumentZero = getFirstArgument(expression, expressionType);
+		String argumentOne = getSecondArgument(expression, expressionType);
 	}
+	
+	
 	
 	
 		
 	
 	/**
-	 * The parse expression method ensures the expression
-	 * types contains the correct arguments. That is, a power
-	 * should have some argument raised to a power, and not
-	 * simply a "^" character.
+	 * The get expression type method returns the expression
+	 * types. That is, a power should have some argument raised 
+	 * to a power, and not simply a "^" character.
 	 * @param expression an expression to check for any of the
 	 * symbols
-	 * @return a String representing the type of operation. Also,
-	 * returns null if nothing was found so that the arithmetic can
-	 * continue in absence of any special characters. 
+	 * @return a character indicating the type of operation.
+	 * Returns null if there are no special characters. 
 	 * 
 	 */
-	public Character parseExpression(String expression) {
+	public Character getExpressionType(String expression) {
 		//Search for the delimeter and return it
 		char[] expressionArray = expression.toCharArray();
 		for (int i = 0; i < expressionArray.length; i++) {
