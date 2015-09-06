@@ -38,16 +38,25 @@ public class ConversionUtility {
 	 * loop through it efficiently to determine if it
 	 * needs to understand certain arguments. 
 	 */
-	public ArrayList<Character> delimeters;
+	public ArrayList <Character> delimeters;
 	/**
 	 * The constructor instantiates the conversion utility.
 	 * It builds the array of delimeters.
 	 */
 	public ConversionUtility() {
 		delimeters = new ArrayList<Character>();
-		delimeters[0] = DEG_SYMBOL;
-		delimeters[1] = POW_SYMBOL;
-		delimeters[2] = SQRT_SYMBOL;
+		buildSymbolList();
+	}
+	
+	/**
+	 * The private method simply builds the
+	 * list of symbols. Additional symbols can be
+	 * added here.
+	 */
+	private void buildSymbolList() {
+		delimeters.add(DEG_SYMBOL);
+		delimeters.add(POW_SYMBOL);
+		delimeters.add(SQRT_SYMBOL);
 	}
 	
 	
@@ -60,6 +69,18 @@ public class ConversionUtility {
 	public String expressionType(String expression) {
 		String argumentZero = null;
 		String argumentOne = null;
+		
+	}
+	
+	/**
+	 * A two part expression is an expression of two parts,
+	 * such as the power symbol. Without 
+	 * @param expression
+	 */
+	private void prepTwoPartExpression(String expression) {
+		
+		
+		
 	}
 	
 	
@@ -77,13 +98,13 @@ public class ConversionUtility {
 	 * continue in absence of any special characters. 
 	 * 
 	 */
-	public String parseExpression(String expression) {
+	public Character parseExpression(String expression) {
 		//Search for the delimeter and return it
-		for (int i = 0; i < delimeters.length; i++) {
-			if (expression.contains(delimeters[i])) {
-				return delimeters[i];
+		char[] expressionArray = expression.toCharArray();
+		for (int i = 0; i < expressionArray.length; i++) {
+			if (expressionArray[i] == delimeters.get(i)) {
+				return delimeters.get(i);
 			}
-				
 		}
 		return null;
 	}
@@ -94,22 +115,52 @@ public class ConversionUtility {
 	 * character was discovered by the parse expression method.
 	 * It gathers all text up to the special character, which
 	 * represents the first part of the argument.
-	 * @param expression
+	 * @param expression or string of text
 	 * @return the first argument of some user-supplied expression
 	 */
-	private String getFirstArgument(String expression, String type) {
-		String firstArgument;
+	private String getFirstArgument(String expression, Character type) {
+		StringBuilder firstArgument = new StringBuilder();
 		int i = 0;
+		//Build the first half of the expression
+		while (i != type) {
+			firstArgument.append(expression.charAt(i));
+		}
+		return firstArgument.toString();
+	}
+	
+	/**
+	 * The get second argument method builds the second half
+	 * of the expression delivered from the parse expression method.
+	 * It gathers the text occurring after the special character and
+	 * to the end of the expression.
+	 * @param expression or string of text
+	 * @return the second half of the expression
+	 */
+	private String getSecondArgument(String expression, Character type) {
+		StringBuilder secondArgument = new StringBuilder();
+		int i = 0;
+		//Build the second half of the expression
 		while (i != type) {
 			expression.charAt(i);
+			i++;
 		}
+		//The loop variable starts where i leaves off (assuming a type
+		//exists)
+		int j = i;
+		while (j < expression.length()) {
+			secondArgument.append(expression.charAt(j));
+		}
+		return secondArgument.toString();
 	}
 	
-	private String getSecondArgument(String expression) {
-		
-	}
-	
-	
+	/**
+	 * The is valid expression method verifies that if an expression
+	 * contains a special character, it contains the proper arguments.
+	 * For example, 5^ is syntactically invalid, whereas 5^5 is not.
+	 * @param expression
+	 * @return true if the expression is valid and false otherwise
+	 */
+	//TODO: Implement this
 	
 	/**
 	 * This method takes a string value, converts it to
