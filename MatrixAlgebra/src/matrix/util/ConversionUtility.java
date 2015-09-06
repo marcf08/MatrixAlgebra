@@ -11,8 +11,7 @@ import java.util.ArrayList;
  */
 public class ConversionUtility {
 	/**
-	 * We simply begin with an initial capacity of 
-	 * 10 elements.
+	 * Begin with an initial capacity of 10 elements.
 	 */
 	public static final int DEL_CAPACITY = 10;
 	/**
@@ -20,7 +19,6 @@ public class ConversionUtility {
 	 * expression that contains greater than twenty digits raised to a power.
 	 */
 	public static final int EXP_MAX_LENGTH = 20;
-	
 	/**
 	 * Symbol for degrees
 	 */
@@ -32,7 +30,15 @@ public class ConversionUtility {
 	/**
 	 * TODO: Symbol for square root
 	 */
-	public static final Character SQRT_SYMBOL = '\u221A';
+	public static final Character ROOT_SYMBOL = '\u221A';
+	/**
+	 * The tolerance values are used for angular measurements.
+	 */
+	public static final double posTolerance = 0.0001;
+	/**
+	 * Negative tolerance value.
+	 */
+	public static final double negTolerance = 0.0001;
 	/**
 	 * The array of delimeters allows the program to
 	 * loop through it efficiently to determine if it
@@ -56,35 +62,39 @@ public class ConversionUtility {
 	private void buildSymbolList() {
 		delimeters.add(DEG_SYMBOL);
 		delimeters.add(POW_SYMBOL);
-		delimeters.add(SQRT_SYMBOL);
+		delimeters.add(ROOT_SYMBOL);
 	}
-	
-	
+
 	/**
-	 * This method examines the expression for degrees, powers,
-	 * square roots or any other symbols not supported by the 
-	 * evaluator's syntax.
-	 * @param expression
+	 * A two part expression is an expression of two parts,
+	 * such as the power symbol. (It contains two arguments.) 
+	 * @param expression an expression to manipulate
 	 */
-	public String expressionType(String expression) {
-		String argumentZero = null;
-		String argumentOne = null;
+	private double threePartExpression(String expression) {
+		Character expressionType = getExpressionType(expression);
+		String argumentZero = getFirstArgument(expression, expressionType);
+		String argumentOne = getSecondArgument(expression, expressionType);
+		return evaluate(argumentZero, argumentOne, expressionType);
 		
 	}
 	
 	/**
-	 * A two part expression is an expression of two parts,
-	 * such as the power symbol. Without 
-	 * @param expression an expression to manipulate
+	 * The evaluate method evaluates an expression given the arguments.
+	 * @param argumentZero the first argument of an expression
+	 * @param argumentOne the second argument of an expression
+	 * @param type the argument type
 	 */
-	private void prepTwoPartExpression(String expression) {
-		Character expressionType = getExpressionType(expression);
-		String argumentZero = getFirstArgument(expression, expressionType);
-		String argumentOne = getSecondArgument(expression, expressionType);
+	public double evaluate(String argumentZero, String argumentOne, Character type) {
+		if (type == POW_SYMBOL) {
+			return toPower(argumentZero, argumentOne);
+		} if (type == ROOT_SYMBOL) {
+			//TODO: Evaluate
+		} if (type == DEG_SYMBOL) {
+			//TODO: Evaluate
+		}
+		
+		
 	}
-	
-	
-	
 	
 		
 	
@@ -107,6 +117,14 @@ public class ConversionUtility {
 			}
 		}
 		return null;
+	}
+	
+	
+	
+	private String getZeroArgument(String expression, Character type) {
+		StringBuilder zeroArgument = new StringBuilder();
+		int i = 0;
+		while (i)
 	}
 	
 	
@@ -169,23 +187,33 @@ public class ConversionUtility {
 	 * @return the degree value
 	 */
 	public double toDegrees(String value) {
-		
+		double valueToConvert = Double.parseDouble(value);
+		return Math.toDegrees(valueToConvert);
 	}
 	
 	/**
-	 * This private method takes a string value and
-	 * converts it to a double for the sake of
-	 * conversion. Most methods will use this as
-	 * the arguments supplied come in the form of a 
-	 * string.
-	 * @param value
-	 * @return  
+	 * The power method takes two arguments and returns the result
+	 * of raising the base to a power.
+	 * @param argumentZero the base
+	 * @param argumentOne the exponent
+	 * @return the result of the operation
 	 */
-	private double toDouble(String value) throws NumberFormatException {
-		double convertedValue = Double.parseDouble(value);
-	
+	private double toPower(String argumentZero, String argumentOne) {
+		double base = Double.parseDouble(argumentZero);
+		double power = Double.parseDouble(argumentOne);
+		return Math.pow(base, power);
 	}
 	
+	/**
+	 * The root symbol takes two arguments and returns the result of
+	 * taking the root of one. (Naturally, it uses the toPower function.)
+	 * @param argumentZero the argument beneath the root symbol
+	 * @param argumentOne the argument outside the root symbol
+	 * @return the result of the operation
+	 */
+	private double toRoot(String argumentZero) {
+		double 
+	}
 	
 	
 	
