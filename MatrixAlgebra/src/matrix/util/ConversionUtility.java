@@ -6,7 +6,7 @@ import java.util.ArrayList;
  * The conversion utility converts strings of certain types from a calculator-based
  * syntax (input supplied by the user) to a syntax recognized by the evaluator. It takes
  * a string like x^2 and translates it to Java syntax, operation(argument, argument).
- * @author Marcus
+ * @author Marcus Flores
  *
  */
 public class ConversionUtility {
@@ -39,6 +39,13 @@ public class ConversionUtility {
 	 * Negative tolerance value.
 	 */
 	public static final double negTolerance = 0.0001;
+	/**
+	 * The default root value is 1/2. If the user does not
+	 * supply a value prior to the root symbol, the calculator
+	 * performs the operation with this default value.
+	 */
+	public static final double defaultRoo = 0.5;
+	
 	/**
 	 * The array of delimeters allows the program to
 	 * loop through it efficiently to determine if it
@@ -88,7 +95,7 @@ public class ConversionUtility {
 		if (type == POW_SYMBOL) {
 			return toPower(argumentZero, argumentOne);
 		} if (type == ROOT_SYMBOL) {
-			//TODO: Evaluate
+			return toRoot(argumentZero, argumentOne);
 		} if (type == DEG_SYMBOL) {
 			//TODO: Evaluate
 		}
@@ -207,13 +214,29 @@ public class ConversionUtility {
 	/**
 	 * The root symbol takes two arguments and returns the result of
 	 * taking the root of one. (Naturally, it uses the toPower function.)
-	 * @param argumentZero the argument beneath the root symbol
-	 * @param argumentOne the argument outside the root symbol
+	 * @param argumentZero the argument beneath the root symbol (the base)
+	 * @param argumentOne the argument outside the root symbol (the power)
 	 * @return the result of the operation
 	 */
-	private double toRoot(String argumentZero) {
-		double 
+	private double toRoot(String argumentZero, String argumentOne) {
+		double base = Double.parseDouble(argumentZero);
+		double powerOutside = Double.parseDouble(argumentOne);
+		
+		
 	}
+	
+	/**
+	 * The get power method gets the power of the argument beneath the
+	 * root symbol. 
+	 * @param argument
+	 * @return
+	 */
+	private double getPower(String argument) {
+		
+	}
+	
+	
+	
 	
 	
 	
