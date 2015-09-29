@@ -14,21 +14,4 @@
 	<natures>
 		<nature>org.eclipse.jdt.core.javanature</nature>
 	</natures>
-	<linkedResources>
-		<link>
-			<name>Ancillaries/Screencaps/screencap1.jpg</name>
-			<type>1</type>
-			<location>C:/Users/Marcus/Desktop/Screencap/screencap1.jpg</location>
-		</link>
-		<link>
-			<name>Ancillaries/Screencaps/screencap2.jpg</name>
-			<type>1</type>
-			<location>C:/Users/Marcus/Desktop/Screencap/screencap2.jpg</location>
-		</link>
-		<link>
-			<name>Ancillaries/Screencaps/screencap3.jpg</name>
-			<type>1</type>
-			<location>C:/Users/Marcus/Desktop/Screencap/screencap3.jpg</location>
-		</link>
-	</linkedResources>
 </projectDescription>
