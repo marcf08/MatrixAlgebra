@@ -3,7 +3,7 @@ MatrixAlgebra expands on the basic Java Calculator concept. As a first project, 
 
 I plan to refactor the GUI this weekend or the next. Until then, please excuse the spaghetti code, incomplete classes, etc. Sometimes, in order to learn how to develop software, it's equally important to learn how <b>not</b> to develop it.
 
-Per the name, the goal is to eventually incorporate a Matrix wrapper class and some basic functions. 
+Per the name, the goal is to eventually incorporate a Matrix wrapper class and some basic functions related to graphing. 
 
 
 
